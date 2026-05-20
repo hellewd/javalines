@@ -1,12 +1,10 @@
-package code;
-
-import java.util.ArrayList; // Solicitado en el punto 2.2
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class SongDataBase {
-    private ArrayList<Song> songs;
 
+    private ArrayList<Song> songs;
     public SongDataBase(ArrayList<Song> songs) {
         this.songs = songs;
     }

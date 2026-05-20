@@ -10,11 +10,11 @@ Class *SongDataBase* || **Estado = Finalizado**
 
 Algoritmos de ordenamiento:
 
-- Insertion Sort || **Estado = Por Implementar**
-- Selection Sort || **Estado = Por Implementar**
+- Insertion Sort || **Estado = Finalizado**
+- Selection Sort || **Estado = Finalizado**
 - Merge Sort || **Estado = Por Implementar**
 - Quick Sort || **Estado = Por Implementar**
 
-Class *DataGenerator* || **Estado = Por Implementar**
+Class *DataGenerator* || **Estado = Finalizado**
 
     - Generación de datos de prueba.
