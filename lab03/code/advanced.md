@@ -12,8 +12,8 @@ Algoritmos de ordenamiento:
 
 - Insertion Sort || **Estado = Finalizado**
 - Selection Sort || **Estado = Finalizado**
-- Merge Sort || **Estado = Por Implementar**
-- Quick Sort || **Estado = Por Implementar**
+- Merge Sort || **Estado = Finalizado**
+- Quick Sort || **Estado = Finalizado**
 
 Class *DataGenerator* || **Estado = Finalizado**
 

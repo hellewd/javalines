@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 
+//Nota = Ordenamiento de O(n^2)
 public class Selection {
     
     public static void sort(ArrayList<Song> songs, Comparator<Song> comparator) {
