@@ -26,14 +26,14 @@ public class Merge {
 
         int i = lo, j = mid + 1;
         for (int k = lo; k <= hi; k++) {
-            if (j > mid) {
+            if (i > mid) {
                 songs.set(k, aux.get(j++));
             } else if (j > hi) {
                 songs.set(k, aux.get(i++));
             } else if (less(comparator, aux.get(j), aux.get(i))) {
                 songs.set(k, aux.get(j++));
             } else {
-                songs.set(k, aux.get(i++))
+                songs.set(k, aux.get(i++));
             }
         }
     }

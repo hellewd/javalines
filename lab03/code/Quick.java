@@ -7,12 +7,12 @@ public class Quick {
     
     public static void sort(ArrayList<Song> songs, Comparator<Song> comparator) {
         Collections.shuffle(songs);
-        sort(songs, 0, song.size() - 1, comparator);
+        sort(songs, 0, songs.size() - 1, comparator);
     }
 
     private static void sort(ArrayList<Song> songs, int lo, int hi, Comparator<Song> comparator) {
         if (hi <= lo) {
-            return
+            return;
         }
         int j = partition(songs, lo, hi, comparator);
         sort(songs, lo, j - 1, comparator);
@@ -25,12 +25,12 @@ public class Quick {
         Song v0 = songs.get(lo);
 
         while (true) {
-            while (less(comparator, song.get(++i), v0)) {
+            while (less(comparator, songs.get(++i), v0)) {
                 if (i == hi) {
                     break;
                 }
             }
-            while (less(comparator, song.get(--j))) {
+            while (less(comparator, v0, songs.get(--j))) {
                 if (j == lo) {
                     break;
                 }
