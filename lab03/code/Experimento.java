@@ -18,7 +18,7 @@ public class Experimento {
     // Experimento de ordenamiento
     private static void ejecutarExperimentoOrdenamiento(int[] sizes) {
         for (int num : sizes) {
-            Out csv = new Out("lab03/csv/sort_" + num + ".csv");
+            Out csv = new Out("csv/sort_" + num + ".csv");
             csv.println("instancia,insertionSort,selectionSort,mergeSort,quickSort");
 
             for (int i = 0; i < 100; i++) {
@@ -61,7 +61,7 @@ public class Experimento {
     // Experimento de búsqueda
     private static void ejecutarExperimentoBusqueda(int[] sizes) {
         for (int num : sizes) {
-            Out csv = new Out("lab03/csv/search_" + num + ".csv");
+            Out csv = new Out("csv/search_" + num + ".csv");
             csv.println("instance,artist,t_linear,t_binary");
 
             // Los 5 artistas por índice fijo (el último es num/50 - 1, no num/50)
@@ -79,23 +79,36 @@ public class Experimento {
 
                 // DB desordenada para búsqueda lineal
                 SongDataBase dbUnsorted = new SongDataBase(new ArrayList<>(originalList));
-                // DB ordenada por artista para búsqueda binaria
-                SongDataBase dbSorted = new SongDataBase(new ArrayList<>(originalList));
-                dbSorted.ordenarPorAlgoritmo("mergeSort", "artist");
 
                 for (String artist : targetArtists) {
+                    
+                    
                     StopwatchCPU timerLineal = new StopwatchCPU();
                     for (int rep = 0; rep < 1000; rep++) {
                         dbUnsorted.sequentialSearch(artist);
                     }
                     double tLineal = timerLineal.elapsedTime();
 
-                    StopwatchCPU timerBinaria = new StopwatchCPU();
+                    
+                
+                    
+                    // Base desordenada nueva para que el MergeSort trabaje desde cero
+                    SongDataBase dbSorted = new SongDataBase(new ArrayList<>(originalList));
+                    StopwatchCPU timerBinaria = new StopwatchCPU(); 
+                    
+                    // 1ro: Se suma el tiempo de ordenar
+                    dbSorted.ordenarPorAlgoritmo("mergeSort", "artist");
+                    
+                    // 2do: Se suma el tiempo de buscar 1000 veces
                     for (int rep = 0; rep < 1000; rep++) {
+                        
                         dbSorted.binarySearch(artist);
                     }
+                    
+                    // El tiempo final de los 2 procesos
                     double tBinaria = timerBinaria.elapsedTime();
 
+                   
                     csv.println(i + "," + artist + "," + tLineal + "," + tBinaria);
                 }
             }
