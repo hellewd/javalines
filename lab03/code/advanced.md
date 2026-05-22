@@ -18,3 +18,5 @@ Algoritmos de ordenamiento:
 Class *DataGenerator* || **Estado = Finalizado**
 
     - Generación de datos de prueba.
+
+Class enne
