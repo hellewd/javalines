@@ -128,7 +128,7 @@ public class Experimento {
                     StopwatchCPU timerBinaria = new StopwatchCPU(); 
                     
                     // 1ro: Se suma el tiempo de ordenar
-                    dbSorted.ordenarPorAlgoritmo("mergeSort", "artist");
+                    dbSorted.ordenarPorAlgoritmo("selectionSort", "artist");
                     
                     // 2do: Se suma el tiempo de buscar 1000 veces
                     for (int rep = 0; rep < 1000; rep++) {
