@@ -16,43 +16,74 @@ public class Experimento {
         System.out.println("¡Experimentos completados con éxito! Archivos CSV generados.");
     }
     // Experimento de ordenamiento
+     private static int repsLento(int n) {
+        if (n <= 1024)  return 10;
+        if (n <= 2048)  return 5;
+        if (n <= 4096)  return 3;
+        return 1;
+    }
+ 
+    private static int repsRapido(int n) {
+        if (n <= 1024)  return 500;
+        if (n <= 2048)  return 200;
+        if (n <= 4096)  return 100;
+        if (n <= 8192)  return 50;
+        if (n <= 16384) return 20;
+        return 10;
+    }
+ 
     private static void ejecutarExperimentoOrdenamiento(int[] sizes) {
         for (int num : sizes) {
             Out csv = new Out("csv/sort_" + num + ".csv");
             csv.println("instancia,insertionSort,selectionSort,mergeSort,quickSort");
-
+ 
+            int rLento  = repsLento(num);
+            int rRapido = repsRapido(num);
+ 
             for (int i = 0; i < 100; i++) {
                 long seed = num + i;
                 ArrayList<Song> originalList = DataGenerator.generateDataBase(num, seed);
-
-                // Insertion Sort
-                ArrayList<Song> copyInsertion = new ArrayList<>(originalList);
-                SongDataBase dbInsertion = new SongDataBase(copyInsertion);
+ 
+                // --- Insertion Sort ---
+                ArrayList<SongDataBase> dbsIns = new ArrayList<>();
+                for (int rep = 0; rep < rLento; rep++)
+                    dbsIns.add(new SongDataBase(new ArrayList<>(originalList)));
+ 
                 StopwatchCPU timerInsertion = new StopwatchCPU();
-                dbInsertion.ordenarPorAlgoritmo("insertionSort", "plays");
-                double tInsertion = timerInsertion.elapsedTime();
-
-                // Selection Sort
-                ArrayList<Song> copySelection = new ArrayList<>(originalList);
-                SongDataBase dbSelection = new SongDataBase(copySelection);
+                for (int rep = 0; rep < rLento; rep++)
+                    dbsIns.get(rep).ordenarPorAlgoritmo("insertionSort", "plays");
+                double tInsertion = timerInsertion.elapsedTime() / rLento;
+ 
+                // --- Selection Sort ---
+                ArrayList<SongDataBase> dbsSel = new ArrayList<>();
+                for (int rep = 0; rep < rLento; rep++)
+                    dbsSel.add(new SongDataBase(new ArrayList<>(originalList)));
+ 
                 StopwatchCPU timerSelection = new StopwatchCPU();
-                dbSelection.ordenarPorAlgoritmo("selectionSort", "plays");
-                double tSelection = timerSelection.elapsedTime();
-
-                // Merge Sort
-                ArrayList<Song> copyMerge = new ArrayList<>(originalList);
-                SongDataBase dbMerge = new SongDataBase(copyMerge);
+                for (int rep = 0; rep < rLento; rep++)
+                    dbsSel.get(rep).ordenarPorAlgoritmo("selectionSort", "plays");
+                double tSelection = timerSelection.elapsedTime() / rLento;
+ 
+                // --- Merge Sort ---
+                ArrayList<SongDataBase> dbsMer = new ArrayList<>();
+                for (int rep = 0; rep < rRapido; rep++)
+                    dbsMer.add(new SongDataBase(new ArrayList<>(originalList)));
+ 
                 StopwatchCPU timerMerge = new StopwatchCPU();
-                dbMerge.ordenarPorAlgoritmo("mergeSort", "plays");
-                double tMerge = timerMerge.elapsedTime();
-
-                // Quick Sort
-                ArrayList<Song> copyQuick = new ArrayList<>(originalList);
-                SongDataBase dbQuick = new SongDataBase(copyQuick);
+                for (int rep = 0; rep < rRapido; rep++)
+                    dbsMer.get(rep).ordenarPorAlgoritmo("mergeSort", "plays");
+                double tMerge = timerMerge.elapsedTime() / rRapido;
+ 
+                // --- Quick Sort ---
+                ArrayList<SongDataBase> dbsQui = new ArrayList<>();
+                for (int rep = 0; rep < rRapido; rep++)
+                    dbsQui.add(new SongDataBase(new ArrayList<>(originalList)));
+ 
                 StopwatchCPU timerQuick = new StopwatchCPU();
-                dbQuick.ordenarPorAlgoritmo("quickSort", "plays");
-                double tQuick = timerQuick.elapsedTime();
-
+                for (int rep = 0; rep < rRapido; rep++)
+                    dbsQui.get(rep).ordenarPorAlgoritmo("quickSort", "plays");
+                double tQuick = timerQuick.elapsedTime() / rRapido;
+ 
                 csv.println(i + "," + tInsertion + "," + tSelection + "," + tMerge + "," + tQuick);
             }
             csv.close();
