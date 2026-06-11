@@ -36,7 +36,7 @@ public class Experiment {
 
         int keyUniverse = 4 * m;
 
-       Out csv = new Out("inventory_experiment_" + m + ".csv");
+       Out csv = new Out("data/inventory_experiment_" + m + ".csv");
         csv.println("instancia,estructura,m,"
                   + "purchase_total,query_total,lend_total,receive_total,dispose_total,"
                   + "query_successful,query_failed,"
