@@ -29,8 +29,6 @@ public class Experiment {
             System.out.println("Ejecutando experimento para m = " + m + " ...");
             runExperiment(m);
         }
-
-        System.out.println("¡Experimentos completados!");
     }
 
 
@@ -49,7 +47,7 @@ public class Experiment {
         for (int i = 0; i < 30; i++) {
             long seed = (long) m + i;
 
-            // Generar operaciones UNA sola vez; 
+            // Generar operaciones una vez; 
             ArrayList<InventoryOperation> ops =
                 DataGenerator.generateOperations(m, keyUniverse, seed);
 
@@ -85,7 +83,7 @@ public class Experiment {
                 + receiveSuccessful + "," + receiveFailed + ","
                 + rb.size() + "," + rb.height() + "," + tRB);
 
-            // Validación de correctitud
+            // Validación
             validate(i, m, bst, rb, ops, bstFinalSize);
         }
 
@@ -168,7 +166,7 @@ public class Experiment {
         receiveSuccessful = receiveFailed = 0;
     }
     
-    //Validación de correctitud
+    //Validación
 
     //ejecuta las validaciones del enunciado, devulve true si hay algun error
     private static void validate(int instancia, int m,
@@ -178,14 +176,14 @@ public class Experiment {
                                   int bstFinalSize) {
         boolean ok = true;
 
-        // 1. Tamaño final igual en ambas estructuras
+        // Tamaño final igual en BST y RedBlackBST
         if (bst.size() != rb.size()) {
             System.err.println("[Validación 1 FALLA] instancia=" + instancia
                 + " m=" + m + " BST.size=" + bst.size() + " RB.size=" + rb.size());
             ok = false;
         }
 
-        // 2. Muestra de 100 claves aleatorias → mismo resultado en get
+        // Muestra de 100 claves aleatorias, mismo resultado en get
         StdRandom.setSeed((long) m + instancia + 999999L);
         for (int k = 0; k < 100; k++) {
             int key = StdRandom.uniformInt(1, 4 * m + 1);
@@ -201,29 +199,29 @@ public class Experiment {
             }
         }
 
-        // 3. Número de operaciones ejecutadas == m
+        // Número de operaciones ejecutadas == m
         if (ops.size() != m) {
             System.err.println("[Validación 3 FALLA] instancia=" + instancia
                 + " ops.size=" + ops.size() + " m=" + m);
             ok = false;
         }
 
-        // 4 & 5. No stock negativo; stockAvailable + stockOnLoan == stockTotal
+        // No stock negativo, stockAvailable + stockOnLoan == stockTotal
         for (Integer key : rb.keys()) {
             InventoryItem item = rb.get(key);
             if (item == null) continue;
             if (!item.isConsistent()) {
-                System.err.println("[Validación 4/5 FALLA] instancia=" + instancia
+                System.err.println("[Validación 4 y 5 FALLA] instancia=" + instancia
                     + " key=" + key + " " + item);
                 ok = false;
                 break;
             }
         }
 
-        // 6. Sin excepciones por claves/valores nulos → implícito si llegamos aquí
+        
 
         if (ok) {
-            // Validación silenciosa en modo OK (no imprimir para no afectar medición)
+            // está todo bien
         }
     }
 }

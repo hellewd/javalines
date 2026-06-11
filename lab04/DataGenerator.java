@@ -25,8 +25,7 @@ public class DataGenerator {
         String category = CATEGORIES[StdRandom.uniformInt(CATEGORIES.length)];
         String location = LOCATIONS[StdRandom.uniformInt(LOCATIONS.length)];
         int    total    = StdRandom.uniformInt(1, 21); // [1, 20]
-        return new InventoryItem(id, "Componente_" + id, category, location,
-                                 total, total, 0);
+        return new InventoryItem(id, "Componente_" + id, category, location,total, total, 0);
     }
 
     // Generación de operaciones 
@@ -59,7 +58,7 @@ public class DataGenerator {
                 case PURCHASE:
                     quantity = StdRandom.uniformInt(1, 6); // [1, 5]
                     if (!presentKeys.contains(key)) {
-                        // Componente nuevo → se crea el item y se registra la clave
+                        // Componente nuevo, se crea el item y se registra la clave
                         newItem = generateItem(key);
                         presentKeys.add(key);
                     }
@@ -75,7 +74,7 @@ public class DataGenerator {
                 case DISPOSE:
                     quantity = 0;
                     if (type == OperationType.DISPOSE) {
-                        // La baja puede eliminar la clave del conjunto
+                        //elimina la clave del conjunto
                         presentKeys.remove(key);
                     }
                     break;

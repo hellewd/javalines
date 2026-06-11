@@ -36,7 +36,7 @@ public class BSTInventoryIndex implements InventoryIndex {
         return st.height();
     }
 
-    @Override
+    
     public String toString() {
         return "BSTInventoryIndex";
     }
